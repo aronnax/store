@@ -63,31 +63,47 @@ var Store = {
     this._dataStore = {};
   },
 
+  checkEach: function(item) {
+    let checks = [function(item) { return item.classId; },
+                  function(item) { return item.id; },
+                  function(item) { return item; }];
+    if (item.classId) {
+
+    } else if (item.id) {
+
+    } else {
+
+    }
+  },
+
+  checkExists: function(itemId, dataStore) {
+    if (dataStore[itemId]) {
+      throw new Error('Object key collision occurred, cannot store key');
+    }
+  },
+
   /**
    * Will add a new item to the store, either ID'ed or not
    * @param {Object|Array|Function} item The item to add
    * @returns {Object|Array|Function} The item passed in.
    */
-  put: function(item) {
-    var stringObjectValue;
-    if (item.classId) {
-      if (this._dataStore[item.classId]) {
+  put(item) {
+    let objectKey = item.classId || item.id || null;
+
+    if (objectKey) {
+      let storedVal = this._dataStore[objectKey];
+      if (storedVal) {
         throw new Error('Object key collision occurred, cannot store key');
+      } else {
+        this._dataStore[objectKey] = item;
       }
-      this._dataStore[item.classId] = item;
-    }
-    else if (item.id) {
-      if (this._dataStore[item.id]) {
-        throw new Error('Object key collision occurred, cannot store key');
+    } else {
+      objectKey = this.stringify(item);
+      let storedVal = this._dataStore[objectKey];
+      if (!storedVal) {
+        this._dataStore[objectKey] = [];
       }
-      this._dataStore[item.id] = item;
-    }
-    else {
-      stringObjectValue = this.stringify(item);
-      if (!this._dataStore[stringObjectValue]) {
-        this._dataStore[stringObjectValue] = [];
-      }
-      this._dataStore[stringObjectValue].push(item);
+      this._dataStore[objectKey].push(item);
     }
 
     return item;
@@ -98,22 +114,16 @@ var Store = {
    * @param {Object|Array|Function} item The item to add
    * @returns {Object|Array|Function} The item passed in.
    */
-  get: function(item) {
-    var stringObjectValue;
+  get(item) {
+    var objectKey = item.classId || item.id || null;
 
-    if (item.classId) {
-      return this._dataStore[item.classId];
+    if(objectKey) {
+      return this._dataStore[objectKey];
     }
-    if (item.id) {
-      return this._dataStore[item.id];
-    }
-    else {
-      stringObjectValue = this.stringify(item);
-      if (!this._dataStore[stringObjectValue]) {
-        return;
-      }
-      return this._dataStore[stringObjectValue][0];
-    }
+
+    objectKey = this.stringify(item);
+    let storedVal = this._dataStore[objectKey];
+    return storedVal && storedVal[0] || null;
   },
 
   /**
@@ -133,7 +143,7 @@ var Store = {
   // TODO Parts of this just reuse the gets functionality
   remove: function(item) {
     var existingItem = this.get(item),
-      stringObjectValue;
+        stringObjectValue;
 
     if (existingItem) {
       if (item.classId) {

@@ -3,10 +3,13 @@
  * Created by msecret on 4/29/15.
  */
 
+import functionBind from 'function-bind';
 import redtape from 'redtape';
 import sinon from 'sinon';
 
 import Store from '../../src/store';
+
+Function.prototype.bind = functionBind;
 
 var sandbox,
     store;
@@ -74,7 +77,7 @@ test('should stringify an object by JSON stringifying it', t => {
  * put()
  * =============================
  */
-test('should return the item put in', t => {
+test('put() should return the item put in', t => {
   var testObj = { },
       storeItem;
 
@@ -85,7 +88,7 @@ test('should return the item put in', t => {
   t.end();
 });
 
-test('should put an IDd object into the data store by id', t => {
+test('put() should put an IDd object into the data store by id', t => {
   var testObj = {
       id: 1,
       testProp: 'test'
@@ -100,7 +103,7 @@ test('should put an IDd object into the data store by id', t => {
   t.end();
 });
 
-test('should throw a key collision error if two objects with the same id' +
+test('put() should throw a key collision error if two objects with the same id' +
     'are stored', t => {
   var testObj = {
       id: 1,
@@ -113,7 +116,7 @@ test('should throw a key collision error if two objects with the same id' +
   t.end();
 });
 
-test('should put a non IDd object with an array', t => {
+test('put() should put a non IDd object with an array', t => {
   var testArray = ['sdf'],
     storeArray,
     stringedArray;
@@ -128,7 +131,7 @@ test('should put a non IDd object with an array', t => {
   t.end();
 });
 
-test('should put a non IDd object onto the array', t => {
+test('put() should put a non IDd object onto the array', t => {
   var testArray = ['sdf'],
       storeArray,
       stringedArray;
@@ -142,7 +145,7 @@ test('should put a non IDd object onto the array', t => {
   t.end();
 });
 
-test('should push objects that are equal onto the array', t => {
+test('put() should push objects that are equal onto the array', t => {
   var testArray = ['sdf'],
     testVal,
     stringedArray;
@@ -162,7 +165,7 @@ test('should push objects that are equal onto the array', t => {
   t.end();
 });
 
-test('should put a non IDd function onto the array', t => {
+test('put() should put a non IDd function onto the array', t => {
   var testFunction = function moon() { return 1; },
     storeResult,
     stringedFunc;
@@ -176,7 +179,7 @@ test('should put a non IDd function onto the array', t => {
   t.end();
 });
 
-test('should put a non IDd object onto the array', t => {
+test('put() should put a non IDd object onto the array', t => {
   var testObject = {'test': 'testa'},
       storeResult,
       stringedObject;
