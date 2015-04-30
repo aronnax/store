@@ -4,7 +4,7 @@ node_js:
 - '0.11'
 - '0.10'
 install: npm install
-before_deploy: npm run compile
+before_deploy: npm run compile-all
 deploy:
   provider: npm
   email: msegreto@miceover.com
