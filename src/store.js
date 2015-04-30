@@ -18,13 +18,13 @@
  * @returns {String} The string representation of the object.
  */
 function objectToString(obj) {
-  if (_.isArray(obj)) {
+  if (Array.isArray(obj)) {
     return obj.join('*');
   }
-  else if (_.isFunction(obj)) {
+  else if (typeof obj === 'function') {
     return obj.toString();
   }
-  else if (_.isObject(obj)) {
+  else if ((typeof obj === 'object') && (obj !== null)) {
     return JSON.stringify(obj);
   }
   else {
@@ -43,8 +43,8 @@ var Store = {
    * The accessible data store.
    * @type Object
    */
-  store: {
-    get: function() { return this._dataStore; }
+  get store() {
+    return this._dataStore;
   },
 
   /**
@@ -52,8 +52,8 @@ var Store = {
    * @type Number
    */
   // TODO Cache this, flush cache on changes.
-  length: {
-    get: function() { return Object.keys(this._dataStore).length; }
+  get length() {
+    return Object.keys(this._dataStore).length;
   },
 
   /**
