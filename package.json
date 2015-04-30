@@ -1,6 +1,6 @@
 {
   "name": "aronnax-store",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "Simple key store wish hashes.",
   "main": "dist/store.js",
   "repository": "git@github.com:aronnax/store.git",

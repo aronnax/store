@@ -2,7 +2,5 @@ node_modules/
 src/
 test/
 
-.travis.yml
-.eslintrc
 .testem.json
 *.log
