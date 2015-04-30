@@ -197,7 +197,7 @@ test('put() should put a non IDd object onto the array', t => {
  * get()
  * =============================
  */
-test('should get an IDd object thats in the store', t => {
+test('get() should get an IDd object thats in the store', t => {
   var testObj1 = {
       id: 1
     },
@@ -214,7 +214,7 @@ test('should get an IDd object thats in the store', t => {
   t.end();
 });
 
-test('should return nothing for an IDd object not in the store', t => {
+test('get() should return nothing for an IDd object not in the store', t => {
   var testObj1 = {
       id: 1
     },
@@ -226,7 +226,7 @@ test('should return nothing for an IDd object not in the store', t => {
   t.end();
 });
 
-test('should get a non IDd object thats in the store', t => {
+test('get() should get a non IDd object thats in the store', t => {
   var testArray1 = ['moon'],
     testArray2 = ['soom'];
 
@@ -239,7 +239,7 @@ test('should get a non IDd object thats in the store', t => {
   t.end();
 });
 
-test('should return none for a non IDd object not in the store', t => {
+test('get() should return none for a non IDd object not in the store', t => {
   var testArray1 = ['moon'];
 
   t.ok(!store.get(testArray1), 'returns undefined');
@@ -251,7 +251,7 @@ test('should return none for a non IDd object not in the store', t => {
  * remove()
  * =============================
  */
-test('should remove a found IDd item from the store', t => {
+test('remove() should remove a found IDd item from the store', t => {
   var testObj = {
     id: 1
   };
@@ -267,9 +267,9 @@ test('should remove a found IDd item from the store', t => {
   t.end();
 });
 
-test('should remove a found non IDd item from the store', t => {
+test('remove() should remove a found non IDd item from the store', t => {
   var testArr1 = ['sdf'],
-    testArr2 = ['sdfg'];
+      testArr2 = ['sdfg'];
 
   store.put(testArr1);
   t.equal(store.get(testArr1), testArr1, 'arrays the same')
@@ -286,8 +286,8 @@ test('should remove a found non IDd item from the store', t => {
   t.end();
 });
 
-test('should remove one item from a non IDd item when there are multiple',
-  t => {
+test('remove() should remove one item from a non IDd item when there are multiple',
+    t => {
   var testArr1 = ['asd'],
       testArr2 = ['asd'],
       arrStr = store.stringify(testArr1);

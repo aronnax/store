@@ -142,19 +142,16 @@ var Store = {
    */
   // TODO Parts of this just reuse the gets functionality
   remove: function(item) {
-    var existingItem = this.get(item),
-        stringObjectValue;
+    var existingItem = this.get(item);
 
     if (existingItem) {
-      if (item.classId) {
-        delete this._dataStore[item.classId];
-      }
-      if (item.id) {
-        delete this._dataStore[item.id];
+      let objectKey = item.classId || item.id || null;
+      if (objectKey) {
+        delete this._dataStore[objectKey];
       }
       else {
-        stringObjectValue = this.stringify(item);
-        return this._dataStore[stringObjectValue].pop();
+        objectKey = this.stringify(item);
+        return this._dataStore[objectKey].pop();
       }
       return existingItem;
     }
