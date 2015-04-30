@@ -63,25 +63,6 @@ var Store = {
     this._dataStore = {};
   },
 
-  checkEach: function(item) {
-    let checks = [function(item) { return item.classId; },
-                  function(item) { return item.id; },
-                  function(item) { return item; }];
-    if (item.classId) {
-
-    } else if (item.id) {
-
-    } else {
-
-    }
-  },
-
-  checkExists: function(itemId, dataStore) {
-    if (dataStore[itemId]) {
-      throw new Error('Object key collision occurred, cannot store key');
-    }
-  },
-
   /**
    * Will add a new item to the store, either ID'ed or not
    * @param {Object|Array|Function} item The item to add
@@ -131,7 +112,7 @@ var Store = {
    * @param {Array|Object|Funciton} item The item to stringify
    * @returns {String} The string representation
    */
-  stringify: function(item) {
+  stringify(item) {
     return objectToString(item);
   },
 
@@ -141,7 +122,7 @@ var Store = {
    * @returns {Undefined}
    */
   // TODO Parts of this just reuse the gets functionality
-  remove: function(item) {
+  remove(item) {
     var existingItem = this.get(item);
 
     if (existingItem) {

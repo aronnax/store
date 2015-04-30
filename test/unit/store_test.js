@@ -310,12 +310,12 @@ test('remove() should remove one item from a non IDd item when there are multipl
  * length()
  * =============================
  */
-test('should start out at zero', t => {
+test('length() should start out at zero', t => {
   t.equal(store.length, 0, 'store length property is 0');
   t.end();
 });
 
-test('should return the amount of objects in the store when added', t => {
+test('length() should return the amount of objects in the store when added', t => {
   var testObj1 = {
       id: 1
     },
@@ -331,7 +331,7 @@ test('should return the amount of objects in the store when added', t => {
   t.end();
 });
 
-test('should return the amount of objects in the store when removed',
+test('length() should return the amount of objects in the store when removed',
     t => {
   var testObj1 = {
       id: 1
