@@ -1,0 +1,34 @@
+{
+  "name": "aronnax-store",
+  "version": "0.4.0",
+  "description": "Simple key store wish hashes.",
+  "main": "dist/store.js",
+  "repository": "git@github.com:aronnax/pooling.git",
+  "scripts": {
+    "clean": "rm -r dist/*",
+    "compile": "babel src/ -s inline -m system -d dist/",
+    "bundle": "browserify src/store.js -t babelify -o dist/index.js",
+    "compile-bundle": "browserify src/store.js -t babelify -t uglifyify -o dist/index.min.js",
+    "lint": "eslint src/*.js",
+    "test": "testem ci -s phantomjs"
+  },
+  "keywords": [
+    "gaming",
+    "performance"
+  ],
+  "author": "Marco Segreto <msegreto@miceover.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^5.1.13",
+    "babel-eslint": "^3.0.1",
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.8",
+    "eslint": "^0.19.0",
+    "phantomjs": "^1.9.16",
+    "redtape": "^1.0.0",
+    "sinon": "^1.14.1",
+    "tape": "^4.0.0",
+    "testem": "^0.8.0-0",
+    "uglifyify": "^3.0.1"
+  }
+}
