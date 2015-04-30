@@ -1,7 +1,3 @@
-/**
- * Created by msecret on 4/29/15.
- */
-
 // Copyright (c) 2013
 // All Rights Reserved
 // https://github.com/msecret/aronnax
@@ -11,26 +7,7 @@
  * @file store Holds the Store module
  */
 
-/**
- * Takes any object and creates a string representation of it.
- * @private
- * @param {Object|Array|Function} obj The object to stringify
- * @returns {String} The string representation of the object.
- */
-function objectToString(obj) {
-  if (Array.isArray(obj)) {
-    return obj.join('*');
-  }
-  else if (typeof obj === 'function') {
-    return obj.toString();
-  }
-  else if ((typeof obj === 'object') && (obj !== null)) {
-    return JSON.stringify(obj);
-  }
-  else {
-    return obj.toString();
-  }
-}
+import 'babel/polyfill';
 
 /**
  * A Store that uses hashing
@@ -51,16 +28,15 @@ var Store = {
    * The current amount of objects in the store
    * @type Number
    */
-  // TODO Cache this, flush cache on changes.
   get length() {
-    return Object.keys(this._dataStore).length;
+    return this._dataStore.size;
   },
 
   /**
    * Initializes the store
    */
   init: function() {
-    this._dataStore = {};
+    this._dataStore = new Map();
   },
 
   /**
@@ -72,19 +48,16 @@ var Store = {
     let objectKey = item.classId || item.id || null;
 
     if (objectKey) {
-      let storedVal = this._dataStore[objectKey];
-      if (storedVal) {
+      if (this._dataStore.has(objectKey)) {
         throw new Error('Object key collision occurred, cannot store key');
       } else {
-        this._dataStore[objectKey] = item;
+        this._dataStore.set(objectKey, item);
       }
     } else {
-      objectKey = this.stringify(item);
-      let storedVal = this._dataStore[objectKey];
-      if (!storedVal) {
-        this._dataStore[objectKey] = [];
+      if (this._dataStore.has(item)) {
+        throw new Error('Object key collision occurred, cannot store key');
       }
-      this._dataStore[objectKey].push(item);
+      this._dataStore.set(item, item);
     }
 
     return item;
@@ -99,40 +72,28 @@ var Store = {
     var objectKey = item.classId || item.id || null;
 
     if(objectKey) {
-      return this._dataStore[objectKey];
+      return this._dataStore.get(objectKey);
     }
 
-    objectKey = this.stringify(item);
-    let storedVal = this._dataStore[objectKey];
-    return storedVal && storedVal[0] || null;
+    return this._dataStore.get(item);
   },
 
-  /**
-   * Creates a string representation of an object
-   * @param {Array|Object|Funciton} item The item to stringify
-   * @returns {String} The string representation
-   */
-  stringify(item) {
-    return objectToString(item);
-  },
 
   /**
    * Removes an item from the data store, if it is found.
    * @param {Object|Array|Function} item The item to remove
    * @returns {Undefined}
    */
-  // TODO Parts of this just reuse the gets functionality
   remove(item) {
     var existingItem = this.get(item);
 
     if (existingItem) {
       let objectKey = item.classId || item.id || null;
       if (objectKey) {
-        delete this._dataStore[objectKey];
+        this._dataStore.delete(objectKey);
       }
       else {
-        objectKey = this.stringify(item);
-        return this._dataStore[objectKey].pop();
+        this._dataStore.delete(item);
       }
       return existingItem;
     }
