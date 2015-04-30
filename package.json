@@ -1,9 +1,9 @@
 {
   "name": "aronnax-store",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Simple key store wish hashes.",
   "main": "dist/store.js",
-  "repository": "git@github.com:aronnax/pooling.git",
+  "repository": "git@github.com:aronnax/store.git",
   "scripts": {
     "clean": "rm -r dist/*",
     "compile": "babel src/ -s inline -m system -d dist/",

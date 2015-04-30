@@ -1,10 +1,10 @@
 {
-  "name": "aronnax-pooling",
-  "version": "0.4.2",
+  "name": "aronnax-store",
+  "version": "0.4.1",
   "authors": [
     "msecret <msegreto@miceover.com>"
   ],
-  "description": "General purpose object pooling",
+  "description": "Simple key store wish hashes.",
   "main": "dist/index.min.js",
   "keywords": [
     "gaming",
