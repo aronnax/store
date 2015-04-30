@@ -2,5 +2,6 @@ node_modules/
 src/
 test/
 
-.testem.json
+testem.json
 *.log
+.eslintrc
