@@ -13,9 +13,9 @@ deploy:
   api_key:
     secure: X73KWMrn+Xn5qU+iM3mlF+uTFW/JrC6K7MpXDqSM0rdj2WbKG/SeRWLgiL8uSK/u96IZiXm2mWZQ5T6wDcpL9NzLcF5E/kmOs0QiWDKsGmB2g2+yG5tsUbWQ0dLi+gbo6mxU37HdHe1Q7g6/4/2+A3w1Q/AbtJQU+D4Nf9+mx+M=
   on:
-    condition: "$NPMPUBLISHED = false"
+    condition: "$NPM_PUBLISHED = false"
     repo: aronnax/store
-after_deploy: export NPMPUBLISHED=true
+after_deploy: export NPM_PUBLISHED=true
 
 env:
   global:
