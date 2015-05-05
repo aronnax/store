@@ -21,6 +21,7 @@ var Store = {
    * @type Object
    */
   get store() {
+    this._dataStore = this._dataStore || new Map();
     return this._dataStore;
   },
 
@@ -29,14 +30,13 @@ var Store = {
    * @type Number
    */
   get length() {
-    return this._dataStore.size;
+    return this.store.size;
   },
 
   /**
    * Initializes the store
    */
   init: function() {
-    this._dataStore = new Map();
   },
 
   /**
@@ -48,16 +48,16 @@ var Store = {
     let objectKey = item.classId || item.id || null;
 
     if (objectKey) {
-      if (this._dataStore.has(objectKey)) {
+      if (this.store.has(objectKey)) {
         throw new Error('Object key collision occurred, cannot store key');
       } else {
-        this._dataStore.set(objectKey, item);
+        this.store.set(objectKey, item);
       }
     } else {
-      if (this._dataStore.has(item)) {
+      if (this.store.has(item)) {
         throw new Error('Object key collision occurred, cannot store key');
       }
-      this._dataStore.set(item, item);
+      this.store.set(item, item);
     }
 
     return item;
@@ -72,10 +72,10 @@ var Store = {
     var objectKey = item.classId || item.id || null;
 
     if(objectKey) {
-      return this._dataStore.get(objectKey);
+      return this.store.get(objectKey);
     }
 
-    return this._dataStore.get(item);
+    return this.store.get(item);
   },
 
 
@@ -90,10 +90,10 @@ var Store = {
     if (existingItem) {
       let objectKey = item.classId || item.id || null;
       if (objectKey) {
-        this._dataStore.delete(objectKey);
+        this.store.delete(objectKey);
       }
       else {
-        this._dataStore.delete(item);
+        this.store.delete(item);
       }
       return existingItem;
     }

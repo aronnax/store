@@ -17,7 +17,6 @@ var sandbox,
 var test = redtape({
   beforeEach: (cb) => {
     store = Object.create(Store);
-    store.init();
     sandbox = sinon.sandbox.create();
     cb();
   },
@@ -25,19 +24,6 @@ var test = redtape({
     sandbox.restore();
     cb();
   }
-});
-
-/* =============================
- * init()
- * =============================
- */
-test('init() should create a private dataStore property', t => {
-  store.init();
-
-  t.ok(store._dataStore, 'the data store is defined');
-  t.ok(store.store, 'store attribute is defined');
-
-  t.end();
 });
 
 /* =============================
@@ -63,7 +49,7 @@ test('put() should put an IDd object into the data store by id', t => {
     storeItem;
 
   store.put(testObj);
-  storeItem = store._dataStore.get(testObj.id);
+  storeItem = store.store.get(testObj.id);
 
   t.equal(storeItem, testObj, 'item put in is the same');
 
