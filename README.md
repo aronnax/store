@@ -10,11 +10,13 @@ it exists, otherwise it will use es6 maps to store the object.
 ```js
 var Store = require('aronnax-store');
 
-var store = Object.create(Store).init();
+var store = Object.create(Store);
 
 store.put({s: 1});
+store.put({id: 5});
 
 var s = store.get({s: 1});
+var t = store.get({id: 5});
 ```
 
 ## Develop
