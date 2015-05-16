@@ -7,7 +7,6 @@
  * @file store Holds the Store module
  */
 
-import 'babel/polyfill';
 
 /**
  * A Store that uses hashing

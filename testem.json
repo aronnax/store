@@ -5,6 +5,6 @@
     "test/**/*_test.js"
   ],
   "serve_files": ["bundle_test.js"],
-  "before_tests": "browserify test/unit.js -t babelify -o bundle_test.js",
+  "before_tests": "browserify test/unit.js -t [ babelify --optional runtime ] -o bundle_test.js",
   "on_exit": "rm bundle_test.js"
 }
